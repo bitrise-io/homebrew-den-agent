@@ -1,12 +1,12 @@
-class BitriseDenAgent < Formula
+class BitriseDenAgent &lt; Formula
   desc "CLI for Bitrise DEN agent"
   homepage "https://github.com/bitrise-io/bitrise-den-agent"
   license ""
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.1.5/bitrise-den-agent-darwin-arm64.zip"
-      sha256 "f54833680b26ccf4532f30b0ab3b7e322dfb1cb37cb29dfd21545919650ef9f3"
+      url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.1.5/bitrise-den-agent-darwin-amd64.zip"
+      sha256 "v1.2.2"
     end
     if Hardware::CPU.intel?
       url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.1.5/bitrise-den-agent-darwin-amd64.zip"
