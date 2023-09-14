@@ -32,4 +32,3 @@ class BitriseDenAgentAT2114 < Formula
       system "#{bin}/bitrise-den-agent"
     end
   end
-  
