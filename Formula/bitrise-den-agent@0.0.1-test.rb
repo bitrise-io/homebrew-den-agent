@@ -25,11 +25,6 @@ class BitriseDenAgent < Formula
     end
 
     def install
-      # Check if ENV["HOMEBREW_BITRISE_INTRO_SECRET"] is empty or null
-      if ENV["HOMEBREW_BITRISE_INTRO_SECRET"].to_s.empty?
-        opoo "The HOMEBREW_BITRISE_INTRO_SECRET environment variable is empty or null. Please ensure it is set before installing this formula."
-        odie "Installation failed due to missing HOMEBREW_BITRISE_INTRO_SECRET environment variable."
-      end
       bin.install "bitrise-den-agent"
     end
 
