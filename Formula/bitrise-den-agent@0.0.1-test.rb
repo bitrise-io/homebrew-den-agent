@@ -1,4 +1,4 @@
-class BitriseDenAgentAT001test < Formula
+class BitriseDenAgent < Formula
     desc "CLI for Bitrise DEN agent"
     homepage "https://github.com/bitrise-io/bitrise-den-agent"
     url "https://github.com/bitrise-io/bitrise-den-agent.git",
@@ -25,16 +25,6 @@ class BitriseDenAgentAT001test < Formula
     end
 
     def install
-      # Check if ENV["HOMEBREW_BITRISE_AGENT_USER_NAME"] is empty or null
-      if ENV["HOMEBREW_BITRISE_AGENT_USER_NAME"].to_s.empty?
-        opoo "The HOMEBREW_BITRISE_AGENT_USER_NAME environment variable is empty or null. Please ensure it is set before installing this formula."
-        odie "Installation failed due to missing BITRISE_AGENT_USER_NAME environment variable."
-      end
-       # Check if ENV["HOMEBREW_BITRISE_AGENT_GROUP_NAME"] is empty or null
-      if ENV["HOMEBREW_BITRISE_AGENT_GROUP_NAME"].to_s.empty?
-        opoo "The HOMEBREW_BITRISE_AGENT_GROUP_NAME environment variable is empty or null. Please ensure it is set before installing this formula."
-        odie "Installation failed due to missing HOMEBREW_BITRISE_AGENT_GROUP_NAME environment variable."
-      end
       # Check if ENV["HOMEBREW_BITRISE_INTRO_SECRET"] is empty or null
       if ENV["HOMEBREW_BITRISE_INTRO_SECRET"].to_s.empty?
         opoo "The HOMEBREW_BITRISE_INTRO_SECRET environment variable is empty or null. Please ensure it is set before installing this formula."
@@ -45,9 +35,8 @@ class BitriseDenAgentAT001test < Formula
 
 
     def plist
-        bitrise_agent_user_name = ENV["HOMEBREW_BITRISE_AGENT_USER_NAME"]
-        bitrise_agent_group_name = ENV["HOMEBREW_BITRISE_AGENT_GROUP_NAME"]
-        bitrise_agent_token = ENV["HOMEBREW_BITRISE_INTRO_SECRET"]
+        bitrise_agent_user_name = ENV["USER"]
+        bitrise_agent_group_name = Etc.getgrgid(Process.gid).name
         <<~EOS
             <?xml version="1.0" encoding="UTF-8"?>
             <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -59,7 +48,7 @@ class BitriseDenAgentAT001test < Formula
                 <array>
                   <string>/bin/bash</string>
                   <string>-lc</string>
-                  <string>/opt/homebrew/bin/bitrise-den-agent connect --intro-secret #{bitrise_agent_token} --server https://exec.bitrise.io</string>
+                  <string>/opt/homebrew/bin/bitrise-den-agent connect --intro-secret BITRISE_AGENT_TOKEN --server https://exec.bitrise.io</string>
                 </array>
 
                 <key>KeepAlive</key>
@@ -92,8 +81,5 @@ class BitriseDenAgentAT001test < Formula
     end
     test do
       system "#{bin}/bitrise-den-agent"
-      assert ENV["HOMEBREW_BITRISE_AGENT_USER_NAME"]
-      assert ENV["HOMEBREW_BITRISE_AGENT_GROUP_NAME"]
-      assert ENV["HOMEBREW_BITRISE_AGENT_GROUP_NAME"]
     end
   end
