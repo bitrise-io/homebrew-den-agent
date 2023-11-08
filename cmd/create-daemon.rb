@@ -8,7 +8,7 @@ module Homebrew
       description <<~EOS
         This tool generates a .plist file for the DEN agent, which is essential for the Bitrise DEN agent to function as a daemon.
       EOS
-      flag   "--bitrise_agent_intro_secret=",
+      flag   "--bitrise-agent-intro-secret=",
              description: "Bitrise DEN agent intro token."
     end
   end
