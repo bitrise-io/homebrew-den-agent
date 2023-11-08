@@ -40,5 +40,10 @@ Upgrade version:
 brew upgrade bitrise-den-agent@2.1.26
 ```
 
+Create daemon
+```zsh
+brew create_daemon --bitrise_agent_intro_secret=YOUR_TOKEN
+```
+
 ## DEV center
 https://devcenter.bitrise.io/
