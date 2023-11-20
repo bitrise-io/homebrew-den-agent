@@ -55,14 +55,20 @@ module Homebrew
                         </dict>
                       </plist>
                   EOS
-    plist_path = "/Users/"+bitrise_agent_user_name+"/Library/LaunchDaemons/io.bitrise.self-hosted-agent.plist"
-    FileUtils.mkdir_p(File.dirname(plist_path))
-    File.write(plist_path, plist_content)
-    SystemCommand.run(
-        "/usr/sbin/chown",
-        args:         ["root:wheel", plist_path],
-        sudo:         true,
-        sudo_as_root: true,
-    )
+    plist_target_path = "/Users/"+bitrise_agent_user_name+"/Library/LaunchDaemons"
+    plist_template_file = "/opt/homebrew/io.bitrise.self-hosted-agent.plist"
+    FileUtils.mkdir_p(File.dirname(plist_template_file))
+    File.write(plist_template_file, plist_content)
+    puts  <<~EOS
+        Plist template file is located in the following directory:
+
+          #{Tty.bold}#{plist_template_file}#{Tty.reset}
+
+        For the daemon setup please run the following commands:
+
+          #{Tty.bold}sudo chown root:wheel #{plist_template_file}
+          sudo cp #{plist_template_file} #{plist_target_path}
+          sudo launchctl load -w #{plist_target_path}/io.bitrise.self-hosted-agent.plist#{Tty.reset}
+      EOS
   end
 end
