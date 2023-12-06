@@ -66,7 +66,9 @@ module Homebrew
 
         For the daemon setup please run the following commands:
 
-          #{Tty.bold}sudo cp #{plist_template_file} #{plist_target_path}
+          #{Tty.bold}sudo mkdir -p #{plist_target_path}
+          sudo chown root:wheel #{plist_target_path}
+          sudo cp #{plist_template_file} #{plist_target_path}
           sudo chown root:wheel #{plist_target_path}/io.bitrise.self-hosted-agent.plist
           sudo launchctl load -w #{plist_target_path}/io.bitrise.self-hosted-agent.plist#{Tty.reset}
       EOS
