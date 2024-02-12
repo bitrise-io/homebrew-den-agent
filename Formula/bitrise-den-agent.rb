@@ -9,18 +9,18 @@ class BitriseDenAgent < Formula
   on_macos do
     if Hardware::CPU.arm?
       url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.28.2/bitrise-den-agent-darwin-arm64.zip"
-      sha256 "c1e6fcb485da05aede452c171c680de427cbadc6cd35a1afaacb6ba37d0ed207"
+      sha256 "935c5eaf3121d5bad63742f5af5746aee3b048b21a55e409b340b0ecae3e5d8f"
     end
     if Hardware::CPU.intel?
       url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.28.2/bitrise-den-agent-darwin-amd64.zip"
-      sha256 "bb3c68a9ee5271ced2960d4e7bb67300acc5222fb47ede4ad5406edc6dff24ef"
+      sha256 "3e383149298d135defee3b539b222139cfe6df48143111752cdb5a05aac66c2c"
     end
   end
 
   on_linux do
     if Hardware::CPU.intel?
       url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.28.2/bitrise-den-agent-linux-amd64.zip"
-      sha256 "f5b9acea7c15613954fb4e99540da5e0ce7430f48f511fac245f8e02279622d7"
+      sha256 "e8b90a489756d6d9c23993278f560ba3006829d16cc575e3768e1d49c447508b"
     end
   end
 
