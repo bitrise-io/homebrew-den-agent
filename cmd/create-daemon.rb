@@ -27,6 +27,13 @@ module Homebrew
                         <dict>
                           <key>Label</key>
                           <string>io.bitrise.self-hosted-agent</string>
+
+                          <key>EnvironmentVariables</key>
+                          <dict>
+                            <key>PATH</key>
+                            <string>/usr/local/bin:/usr/bin/:/bin/:/opt/homebrew/bin</string>
+                          </dict>
+
                           <key>ProgramArguments</key>
                           <array>
                             <string>/bin/bash</string>
