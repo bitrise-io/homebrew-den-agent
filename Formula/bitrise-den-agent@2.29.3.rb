@@ -13,15 +13,13 @@ class BitriseDenAgentAT2293 < Formula
       end
       if Hardware::CPU.intel?
         url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.29.3/bitrise-den-agent-darwin-amd64.zip"
-        sha256 "996144b5a0f62ff5ddb2820a6244c1c7d858d06ac0b8ea6ff8aece9765e81e19"
-      end
+        sha256 "7dad2dd6c05114770dbb838cc48341da368519617fdb14abd1f3226e84a3b75d"
     end
   
     on_linux do
       if Hardware::CPU.intel?
         url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.29.3/bitrise-den-agent-linux-amd64.zip"
-        sha256 "266bc2491c720aa6f71e01619963da8d8709567412d51e23ddf72d0371863214"
-      end
+        sha256 "91e14450d676e481e1a12f3b167a9538940727fcbc78a5c832f71022cf6487d8"
     end
   
     def install
