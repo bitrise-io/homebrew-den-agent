@@ -2,8 +2,8 @@ class BitriseDenAgent < Formula
   desc "CLI for Bitrise DEN agent"
   homepage "https://github.com/bitrise-io/bitrise-den-agent"
   url "https://github.com/bitrise-io/bitrise-den-agent.git",
-    tag:      "v2.29.3",
-    revision: "27440f1768caa1e9f018fa5d3b9a7fda37343aa0"
+      tag:      "v2.29.3",
+      revision: "27440f1768caa1e9f018fa5d3b9a7fda37343aa0"
   license ""
 
   on_macos do
