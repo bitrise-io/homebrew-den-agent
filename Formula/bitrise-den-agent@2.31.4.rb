@@ -1,4 +1,4 @@
-class BitriseDenAgent &lt; Formula
+class BitriseDenAgentAT2314 &lt; Formula
   desc "CLI for Bitrise DEN agent"
   homepage "https://github.com/bitrise-io/bitrise-den-agent"
   url "https://github.com/bitrise-io/bitrise-den-agent.git",
