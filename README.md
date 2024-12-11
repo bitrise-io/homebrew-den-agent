@@ -40,10 +40,25 @@ Upgrade version:
 brew upgrade bitrise-den-agent@2.1.26
 ```
 
-Create daemon
+# Create Daemon
+
+This tool allows you to create a daemon using Homebrew.
+
+## Usage
+
+To create a daemon, use the following command:
+
 ```zsh
-brew create-daemon --bitrise-agent-intro-secret=YOUR_TOKEN
+brew create-daemon --bitrise-agent-intro-secret=YOUR_TOKEN [--log-file-path=/path/to/logfile.log]
 ```
+
+## Parameters
+
+- `--bitrise-agent-intro-secret=YOUR_TOKEN`: **(Required)**  
+  The secret token for Bitrise agent introduction. Replace `YOUR_TOKEN` with your actual token.
+
+- `--log-file-path=/path/to/logfile.log`: **(Optional)**  
+  Specifies the path to the log file where the daemon will write logs. If not provided, logging to a file will not occur.
 
 ## DEV center
 https://devcenter.bitrise.io/
