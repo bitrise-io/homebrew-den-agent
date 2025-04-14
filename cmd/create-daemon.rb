@@ -1,6 +1,5 @@
 # typed: strict
 # frozen_string_literal: true
-
 require "etc"
 require "fileutils"
 require "abstract_command"
@@ -20,27 +19,21 @@ module Homebrew
       def run
         # Parse arguments
         bitrise_agent_intro_secret = args.bitrise_agent_intro_secret
-
         # Get user info
         bitrise_agent_user_name = ENV["USER"]
         bitrise_agent_group_name = Etc.getgrgid(Process.gid).name
-
         # Create necessary directories
         create_symlink
         create_log_directory
-
         # Build command arguments dynamically
         command_args = "/opt/bitrise/bin/bitrise-den-agent connect --intro-secret #{bitrise_agent_intro_secret} --server https://exec.bitrise.io"
         command_args += " --fetch-latest-cli" if args.fetch_latest_cli
-
         # Create plist content
         plist_content = create_plist_content(command_args, bitrise_agent_user_name, bitrise_agent_group_name)
-
         # Write plist to file
         plist_template_file = "/opt/homebrew/io.bitrise.self-hosted-agent.plist"
         FileUtils.mkdir_p(File.dirname(plist_template_file))
         File.write(plist_template_file, plist_content)
-
         # Output instructions
         output_instructions(plist_template_file, bitrise_agent_user_name)
       end
@@ -50,23 +43,57 @@ module Homebrew
       # Create symlink for the binary
       def create_symlink
         bin_path = "/opt/bitrise/bin"
-        FileUtils.mkdir_p(bin_path) unless Dir.exist?(bin_path)
-
         symlink_target = "/opt/homebrew/bin/bitrise-den-agent"
         symlink_location = "#{bin_path}/bitrise-den-agent"
+
+        FileUtils.mkdir_p(bin_path) unless Dir.exist?(bin_path)
+
+        # Check if the target file (the actual binary) exists
+        unless File.exist?(symlink_target)
+            puts <<~EOS
+              The target file '#{symlink_target}' does not exist.
+              Hint: Please ensure that the Bitrise DEN agent is installed by running the command:
+                #{Tty.bold}brew install bitrise-den-agent#{Tty.reset}
+            EOS
+            return
+        end
 
         if File.exist?(symlink_location)
           puts "Symlink already exists: #{symlink_location}"
         else
-          File.symlink(symlink_target, symlink_location)
-          puts "Symlink created: #{symlink_location} -> #{symlink_target}"
+          begin
+            File.symlink(symlink_target, symlink_location)
+            puts "Symlink created: #{symlink_location} -> #{symlink_target}"
+          rescue Errno::EACCES => e
+            puts <<~EOS
+              Permission denied, cannot create symlink: #{e.message}
+              Hint: You can create the symlink manually using the following command:
+                #{Tty.bold}sudo ln -s #{symlink_target} #{symlink_location}#{Tty.reset}
+              Additionally, make sure the target directory exists and has the correct permissions.
+            EOS
+          rescue Errno::ENOENT => e
+            puts <<~EOS
+              The target file '#{symlink_target}' does not exist.
+              Please ensure that the Bitrise DEN agent is installed by running the command:
+                #{Tty.bold}brew install bitrise-den-agent#{Tty.reset}
+            EOS
+          end
         end
       end
 
       # Create the log directory
       def create_log_directory
         log_path = "/opt/bitrise/var/log"
-        FileUtils.mkdir_p(log_path) unless Dir.exist?(log_path)
+        begin
+          FileUtils.mkdir_p(log_path) unless Dir.exist?(log_path)
+        rescue Errno::EACCES => e
+          puts <<~EOS
+            Permission denied, cannot create log directory: #{e.message}
+            Hint: Please manually create the /opt/bitrise/var directory and set the appropriate permissions. Run the following command
+              #{Tty.bold}sudo mkdir -p /opt/bitrise/var
+              sudo chmod 775 /opt/bitrise/var#{Tty.reset}
+          EOS
+        end
       end
 
       # Create plist content
