@@ -20,7 +20,7 @@ Fetch the formulae in this tap:
 brew tap bitrise-io/den-agent
 ```
 
-Install latest or exact version
+Install latest or exact version:
 
 ```zsh
 # latest
@@ -40,9 +40,17 @@ Upgrade version:
 brew upgrade bitrise-den-agent@2.1.26
 ```
 
-Create daemon
+Create a daemon from bitrise-den-agent:
+
+This command sets up the Bitrise DEN agent as a daemon running under the current user.
+
+It creates the necessary directories, installs or symlinks the agent binary, and configures the launchd plist to run the agent automatically.
+- The `--bitrise-agent-intro-secret` is a required token used to authenticate the agent during connection.
+- The optional `--enable-agent-self-update` flag makes sure the latest version of the Bitrise DEN agent is fetched and used.
+- Running as sudo is required to load the daemon properly.
+
 ```zsh
-brew create-daemon --bitrise-agent-intro-secret=YOUR_TOKEN
+sudo $(brew --prefix)/bin/create_bitrise_daemon.sh --bitrise-agent-intro-secret=YOUR_TOKEN --enable-agent-self-update
 ```
 
 ## DEV center
