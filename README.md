@@ -46,11 +46,11 @@ This command sets up the Bitrise DEN agent as a daemon running under the current
 
 It creates the necessary directories, installs or symlinks the agent binary, and configures the launchd plist to run the agent automatically.
 - The `--bitrise-agent-intro-secret` is a required token used to authenticate the agent during connection.
-- The optional `--fetch-latest-cli` flag makes sure the latest version of the Bitrise DEN agent is fetched and used.
+- The optional `--enable-agent-self-update` flag makes sure the latest version of the Bitrise DEN agent is fetched and used.
 - Running as sudo is required to load the daemon properly.
 
 ```zsh
-sudo $(brew --prefix)/bin/create_bitrise_daemon.sh --bitrise-agent-intro-secret=YOUR_TOKEN --fetch-latest-cli
+sudo $(brew --prefix)/bin/create_bitrise_daemon.sh --bitrise-agent-intro-secret=YOUR_TOKEN --enable-agent-self-update
 ```
 
 ## DEV center

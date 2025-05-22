@@ -38,7 +38,7 @@ class BitriseDenAgent < Formula
       fi
 
       USER_NAME="$SUDO_USER"
-      GROUP_NAME=$(id -gn "$SUDO_USER")
+      GROUP_NAME="staff"
 
       BIN_PATH="/opt/bitrise/bin"
       AGENT_PATH="$BIN_PATH/bitrise-den-agent"
@@ -49,11 +49,11 @@ class BitriseDenAgent < Formula
       PLIST_NAME="io.bitrise.self-hosted-agent.plist"
 
       usage() {
-        echo "Usage: $0 --bitrise-agent-intro-secret=SECRET [--fetch-latest-cli]"
+        echo "Usage: $0 --bitrise-agent-intro-secret=SECRET [--enable-agent-self-update]"
         echo
         echo "Options:"
         echo "  --bitrise-agent-intro-secret=SECRET   Bitrise DEN agent intro token (required)"
-        echo "  --fetch-latest-cli                    If set, copy binary instead of symlink and add --fetch-latest-cli flag"
+        echo "  --enable-agent-self-update            If set, allows bitrise-agent to perform self-updates; disabled by default."
         exit 1
       }
 
@@ -66,7 +66,7 @@ class BitriseDenAgent < Formula
             BITRISE_AGENT_INTRO_SECRET="${arg#*=}"
             shift
             ;;
-          --fetch-latest-cli)
+          --enable-agent-self-update)
             FETCH_LATEST_CLI=true
             shift
             ;;
