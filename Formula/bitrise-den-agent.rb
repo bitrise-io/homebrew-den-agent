@@ -2,25 +2,25 @@ class BitriseDenAgent < Formula
   desc "CLI for Bitrise DEN agent"
   homepage "https://github.com/bitrise-io/bitrise-den-agent"
   url "https://github.com/bitrise-io/bitrise-den-agent.git",
-    tag:      "v2.63.0",
-    revision: "a3fe493da85f1d7107a94ec0f98acece62891232"
+    tag:      "v2.63.3",
+    revision: "561841f86d77baac1a9a2a21459273e382286c82"
   license ""
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.63.0/bitrise-den-agent-darwin-arm64.zip"
-      sha256 "57691c9b3792fb86363eac74765b97d13ac32297659614fb03d272e96c6a8fb2"
+      url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.63.3/bitrise-den-agent-darwin-arm64.zip"
+      sha256 "ce5bccbc8852da22bfe23a6f6a4f77e9e7bfeec809d8d33cb305d56550f30745"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.63.0/bitrise-den-agent-darwin-amd64.zip"
-      sha256 "382b2558aa8daaad2137bb2d36c5461b942fcbe0eb9e09497e98255718923031"
+      url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.63.3/bitrise-den-agent-darwin-amd64.zip"
+      sha256 "4f8f88fba84edca772362c7eab87825ba01bf4162bec553c11c648b90a189739"
     end
   end
 
   on_linux do
     if Hardware::CPU.intel?
-      url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.63.0/bitrise-den-agent-linux-amd64.zip"
-      sha256 "3daf0c8386f2c53392c59dc7deea14147114814785cbd9b3c510e8bf3d7ac3e2"
+      url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.63.3/bitrise-den-agent-linux-amd64.zip"
+      sha256 "18b86bbf876eff20f26f0da1ebfda2a86b50438634ee33ef2a3d5281c078b03a"
     end
   end
 
