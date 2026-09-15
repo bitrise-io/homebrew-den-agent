@@ -2,29 +2,29 @@ class BitriseDenAgent < Formula
   desc "CLI for Bitrise DEN agent"
   homepage "https://github.com/bitrise-io/bitrise-den-agent"
   url "https://github.com/bitrise-io/bitrise-den-agent.git",
-    tag:      "v2.67.6",
-    revision: "209bfcb2f9d5dba9b38e584c61267d1de38be250"
+    tag:      "v2.67.7",
+    revision: "4037f1ab31e989e16a53cf736f4e8ffa474e49ac"
   license ""
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.67.6/bitrise-den-agent-darwin-arm64.zip"
-      sha256 "3c4322097b870610bd98972b3a7b4a1d5f26edd24671482e69d35de234bf7f2d"
+      url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.67.7/bitrise-den-agent-darwin-arm64.zip"
+      sha256 "ecd7da16995683ba1d3224a0fa7961bc169589d6785cf54fd937f6708f934752"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.67.6/bitrise-den-agent-darwin-amd64.zip"
-      sha256 "0d820e39bde7efa53f2ad0ab35b4146699a4ffd311d7d4480c2af35a8be62dda"
+      url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.67.7/bitrise-den-agent-darwin-amd64.zip"
+      sha256 "bb5e8c1dfaac105c46a800bbc43f8fff8317f3304a11a082dd4a6bb6d2b52022"
     end
   end
 
   on_linux do
     if Hardware::CPU.intel?
-      url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.67.6/bitrise-den-agent-linux-amd64.zip"
-      sha256 "0a0dc7482cbf3e31a5b407a8b67fb9efea1ad16fae4c489c2dcca502c9dc449f"
+      url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.67.7/bitrise-den-agent-linux-amd64.zip"
+      sha256 "b5ac9774cfdf2656823e5207c7edcadcea60bda535641b7a6e6e5c65703565ab"
     end
     if Hardware::CPU.arm?
-      url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.67.6/bitrise-den-agent-linux-arm64.zip"
-      sha256 "4a74f2600cd532e86b4aacc86f49464251232d117c862f92887c74eaf1bbc932"
+      url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.67.7/bitrise-den-agent-linux-arm64.zip"
+      sha256 "004926b5034b7abacef025cb227b2208c098527e5513c22e1189a12ac84b3c14"
     end
   end
 
@@ -49,7 +49,8 @@ class BitriseDenAgent < Formula
       BINARY_SOURCE="/opt/homebrew/bin/bitrise-den-agent"
       PLIST_TEMPLATE_FILE="/opt/homebrew/io.bitrise.self-hosted-agent.plist"
       LOG_PATH="/opt/bitrise/var/log"
-      PLIST_TARGET_DIR="/Users/${USER_NAME}/Library/LaunchDaemons"
+      PLIST_TARGET_DIR="/Library/LaunchDaemons"
+      LEGACY_PLIST_TARGET_DIR="/Users/${USER_NAME}/Library/LaunchDaemons"
       PLIST_NAME="io.bitrise.self-hosted-agent.plist"
 
       usage() {
@@ -208,7 +209,18 @@ class BitriseDenAgent < Formula
 
       echo "Plist generated at: $PLIST_TEMPLATE_FILE"
 
+      migrate_legacy_daemon() {
+        local legacy_plist="${LEGACY_PLIST_TARGET_DIR}/${PLIST_NAME}"
+        if [[ -f "$legacy_plist" ]]; then
+          echo "Found legacy daemon plist at $legacy_plist, migrating to $PLIST_TARGET_DIR"
+          launchctl unload -w "$legacy_plist" 2>/dev/null || true
+          rm -f "$legacy_plist"
+          echo "Legacy daemon plist removed: $legacy_plist"
+        fi
+      }
+
       install_daemon() {
+        migrate_legacy_daemon
         echo "Installing daemon plist..."
         echo "Creating directory $PLIST_TARGET_DIR"
         mkdir -p "${PLIST_TARGET_DIR}"
