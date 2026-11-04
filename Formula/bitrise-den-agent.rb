@@ -2,29 +2,29 @@ class BitriseDenAgent < Formula
   desc "CLI for Bitrise DEN agent"
   homepage "https://github.com/bitrise-io/bitrise-den-agent"
   url "https://github.com/bitrise-io/bitrise-den-agent.git",
-    tag:      "v2.69.0",
-    revision: "27898ef346edb03736d8eb7e859b48584b47eca0"
+    tag:      "v2.71.0",
+    revision: "2bbaae973d7c543b23ccb3f044a62a6c52917fff"
   license ""
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.69.0/bitrise-den-agent-darwin-arm64.zip"
-      sha256 "b67c38531a3c6fed6571029fbe0958e828156979e8507ccec6c2404e03894186"
+      url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.71.0/bitrise-den-agent-darwin-arm64.zip"
+      sha256 "9406c2b034d8e61578d99d193a8876cd6f0d9c841f79a3284ea43b3d95141e6a"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.69.0/bitrise-den-agent-darwin-amd64.zip"
-      sha256 "88f45f86d599461daec553c4584fc507e443d97fb1af74e6c31ae467e228d753"
+      url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.71.0/bitrise-den-agent-darwin-amd64.zip"
+      sha256 "b5dbb8a7727073bb8a6abc5202008f68ce3d9dea746fcb029f55d06fcd06fc22"
     end
   end
 
   on_linux do
     if Hardware::CPU.intel?
-      url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.69.0/bitrise-den-agent-linux-amd64.zip"
-      sha256 "926b332d0f0fb5cd423396658bf0236607eadcb52f2bb8f4ec7d7c74951b6909"
+      url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.71.0/bitrise-den-agent-linux-amd64.zip"
+      sha256 "4eefeaa9fa8f27f0003619f16712e4e89f2b06da5e3d7593741d87420f10bb6e"
     end
     if Hardware::CPU.arm?
-      url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.69.0/bitrise-den-agent-linux-arm64.zip"
-      sha256 "a3ffa2413e829b1e9045195550cbae8d4967f1d17a40ad8ad72dd5680d85b0f5"
+      url "https://github.com/bitrise-io/bitrise-den-agent/releases/download/v2.71.0/bitrise-den-agent-linux-arm64.zip"
+      sha256 "30e11aac2b83ffe0db8b191e38a81b3f0237064882e164b811a0ac3239b7209e"
     end
   end
 
